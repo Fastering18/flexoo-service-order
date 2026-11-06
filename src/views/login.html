@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexoo - Sign In</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="login-wrapper">
+        <div class="login-card">
+            <div class="brand-logo">Flexoo</div>
+            <p class="login-subtitle">Sign in to access the Service Order Dashboard</p>
+
+            {{ if .Error }}
+            <div class="login-error">{{ .Error }}</div>
+            {{ end }}
+
+            <form action="/login" method="POST">
+                <div class="form-group">
+                    <label class="form-label" for="username">Username or Email</label>
+                    <input class="form-input" type="text" id="username" name="username" placeholder="brahmana" value="{{ .Username }}" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <input class="form-input" type="password" id="password" name="password" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn-primary btn-block">Sign In</button>
+            </form>
+
+            <div class="demo-credentials">
+                <div><strong>Demo Accounts:</strong></div>
+                <div>Username: <code>brahmana</code> &nbsp;|&nbsp; Password: <code>password123</code></div>
+                <div>Username: <code>admin</code> &nbsp;|&nbsp; Password: <code>admin123</code></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
