@@ -30,11 +30,16 @@ func SetupRouter() *gin.Engine {
 			"../src/views/*.html",
 			"/var/task/src/views/*.html",
 		}
+		loadedViews := false
 		for _, pattern := range viewPatterns {
 			if matches, err := filepath.Glob(pattern); err == nil && len(matches) > 0 {
 				r.LoadHTMLGlob(pattern)
+				loadedViews = true
 				break
 			}
+		}
+		if !loadedViews {
+			r.SetHTMLTemplate(loadFallbackTemplates())
 		}
 
 		staticDirs := []string{
@@ -43,11 +48,16 @@ func SetupRouter() *gin.Engine {
 			"../src/public",
 			"/var/task/src/public",
 		}
+		loadedStatic := false
 		for _, dir := range staticDirs {
 			if _, err := os.Stat(dir); err == nil {
 				r.Static("/static", dir)
+				loadedStatic = true
 				break
 			}
+		}
+		if !loadedStatic {
+			r.GET("/static/*filepath", serveFallbackStatic)
 		}
 
 		authController := controllers.NewAuthController()
@@ -73,4 +83,3 @@ func SetupRouter() *gin.Engine {
 
 	return routerInstance
 }
-
