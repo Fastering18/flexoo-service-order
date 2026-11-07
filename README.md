@@ -5,7 +5,9 @@ Website demo ini terdiri dari 2 halaman utama:
 - Configure Project & Order  
 
 ## Design Pages  
-Berikut link figma: [project](https://www.figma.com/design/DzJRcz0XuW9AqNceoHEYO3/Flexoo-service-pages?node-id=1-219&t=DZF4LPuAtsSVHDU0-1)
+Berikut link figma: [project](https://www.figma.com/design/DzJRcz0XuW9AqNceoHEYO3/Flexoo-service-pages?node-id=1-219&t=DZF4LPuAtsSVHDU0-1)  
+Live Website: [flexoo-service-order.vercel.app](https://flexoo-service-order.vercel.app/)  
+
 ### 1. Explore Package  
 ![explorep](/docs/Explore%20products.png)  
 

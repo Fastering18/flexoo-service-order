@@ -1,8 +1,8 @@
 package routes
 
 import (
+	"log"
 	"os"
-	"path/filepath"
 	"sync"
 
 	"flexoo-service-order/src/config"
@@ -24,23 +24,8 @@ func SetupRouter() *gin.Engine {
 		r := gin.New()
 		r.Use(gin.Recovery())
 
-		viewPatterns := []string{
-			"src/views/*.html",
-			"views/*.html",
-			"../src/views/*.html",
-			"/var/task/src/views/*.html",
-		}
-		loadedViews := false
-		for _, pattern := range viewPatterns {
-			if matches, err := filepath.Glob(pattern); err == nil && len(matches) > 0 {
-				r.LoadHTMLGlob(pattern)
-				loadedViews = true
-				break
-			}
-		}
-		if !loadedViews {
-			r.SetHTMLTemplate(loadFallbackTemplates())
-		}
+		r.SetHTMLTemplate(loadFallbackTemplates())
+		log.Println("[flexoo] loaded embedded HTML templates")
 
 		staticDirs := []string{
 			"src/public",
@@ -52,12 +37,14 @@ func SetupRouter() *gin.Engine {
 		for _, dir := range staticDirs {
 			if _, err := os.Stat(dir); err == nil {
 				r.Static("/static", dir)
+				log.Printf("[flexoo] serving static files from: %s", dir)
 				loadedStatic = true
 				break
 			}
 		}
 		if !loadedStatic {
 			r.GET("/static/*filepath", serveFallbackStatic)
+			log.Println("[flexoo] using embedded fallback static assets")
 		}
 
 		authController := controllers.NewAuthController()
@@ -79,6 +66,7 @@ func SetupRouter() *gin.Engine {
 		}
 
 		routerInstance = r
+		log.Println("[flexoo] router initialized successfully")
 	})
 
 	return routerInstance

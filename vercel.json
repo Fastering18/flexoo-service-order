@@ -1,10 +1,5 @@
 {
   "version": 2,
-  "functions": {
-    "api/*.go": {
-      "includeFiles": "{src/**,../src/**}"
-    }
-  },
   "rewrites": [
     {
       "source": "/(.*)",

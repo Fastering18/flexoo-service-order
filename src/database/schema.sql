@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS services (
     category_id BIGINT REFERENCES categories(category_id) ON DELETE SET NULL,
     name VARCHAR(100) NOT NULL,
     description TEXT,
-    page_range VARCHAR(40),
+    page_range VARCHAR(120),
     base_price NUMERIC(10,2) NOT NULL
 );
 
